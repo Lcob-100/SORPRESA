@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test de Nivel de Sorpresa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4ff;
+      color: #333;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #3f51b5;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    button {
+      background: #3f51b5;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .result {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Qué nivel de sorpresa estás sintiendo ahora?</h1>
+  <form id="testForm"></form>
+  <button onclick="calcularResultado()" type="button">Ver resultado</button>
+  <div class="result" id="resultado"></div>
+
+  <script>
+    const preguntas = [
+      "¿Pasó algo hoy que no esperabas en absoluto?",
+      "¿Hubo un cambio repentino en tus planes o entorno?",
+      "¿Algo te dejó sin palabras o te confundió?",
+      "¿Te quedaste en blanco tras ver o escuchar algo?",
+      "¿Tuviste que detenerte a tratar de entender lo que sucedió?",
+      "¿Te sentiste físicamente impactado por algo que ocurrió?",
+      "¿Has tenido que reorganizar tus ideas por algo inesperado?",
+      "¿Te quedaste paralizado por unos segundos al recibir cierta información?",
+      "¿Sentiste una mezcla de emociones difíciles de identificar al momento?",
+      "¿Lo que ocurrió hoy cambió completamente tu perspectiva?"
+    ];
+
+    const opciones = [
+      "No, todo ha sido normal.",
+      "Hubo pequeños imprevistos, pero nada grave.",
+      "Sí, algo me tomó por sorpresa.",
+      "Sí, sentí un gran asombro o shock.",
+      "Sí, estoy sobrepasado/a o confundido/a aún."
+    ];
+
+    const form = document.getElementById("testForm");
+    preguntas.forEach((pregunta, i) => {
+      const div = document.createElement("div");
+      div.classList.add("question");
+      div.innerHTML = `<p>${i + 1}. ${pregunta}</p>`;
+      opciones.forEach((op, j) => {
+        div.innerHTML += `<label><input type="radio" name="p${i}" value="${j + 1}"> ${op}</label><br>`;
+      });
+      form.appendChild(div);
+    });
+
+    function calcularResultado() {
+      let total = 0;
+      for (let i = 0; i < preguntas.length; i++) {
+        const respuesta = document.querySelector(`input[name="p${i}"]:checked`);
+        if (respuesta) {
+          total += parseInt(respuesta.value);
+        }
+      }
+
+      let resultado = "";
+      if (total <= 16) resultado = "Nivel: Desconcierto leve";
+      else if (total <= 24) resultado = "Nivel: Sorpresa moderada";
+      else if (total <= 32) resultado = "Nivel: Asombro";
+      else if (total <= 40) resultado = "Nivel: Estupor / Shock";
+      else resultado = "Nivel: Sobrecarga / Estado de Shock";
+
+      document.getElementById("resultado").innerText = resultado;
+    }
+  </script>
+</body>
+</html>
