@@ -83,14 +83,31 @@
         }
       }
 
-      let resultado = "";
-      if (total <= 16) resultado = "Nivel: Desconcierto leve";
-      else if (total <= 24) resultado = "Nivel: Sorpresa moderada";
-      else if (total <= 32) resultado = "Nivel: Asombro";
-      else if (total <= 40) resultado = "Nivel: Estupor / Shock";
-      else resultado = "Nivel: Sobrecarga / Estado de Shock";
+    let resultado = "";
+      let urlConsejo = "";
+
+      if (total <= 16) {
+        resultado = "Nivel: Desconcierto leve";
+        urlConsejo = "consejos-nivel1.html";
+      } else if (total <= 24) {
+        resultado = "Nivel: Sorpresa moderada";
+        urlConsejo = "consejos-nivel2.html";
+      } else if (total <= 32) {
+        resultado = "Nivel: Asombro";
+        urlConsejo = "consejos-nivel3.html";
+      } else if (total <= 40) {
+        resultado = "Nivel: Estupor / Shock";
+        urlConsejo = "consejos-nivel4.html";
+      } else {
+        resultado = "Nivel: Sobrecarga / Estado de shock profundo";
+        urlConsejo = "consejos-nivel5.html";
+      }
 
       document.getElementById("resultado").innerText = resultado;
+
+      setTimeout(() => {
+        window.location.href = urlConsejo;
+      }, 4000);
     }
   </script>
 </body>
